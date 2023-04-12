@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import '../../public/css/calculadora.css';
 import Ume from './Ume';
+import * as tf from '@tensorflow/tfjs';
 
 const Calculadora = () => {
   const ingredientes = useSelector(state => state.ingredientes);
@@ -28,10 +29,6 @@ const Calculadora = () => {
 
     totalCalorias();
   }, [ingredienteSeleccionado]);
-
-  useEffect(() => {
-    cargarModelo();
-  }, []);
 
   const handleChange = e => {
     const inputValue = e.target.value.toLowerCase().trim();
@@ -87,6 +84,10 @@ const Calculadora = () => {
     setModelo(model);
     console.log('Modelo cargado...');
   };
+
+  useEffect(() => {
+    cargarModelo();
+  }, []);
 
   const handleEdit = (e, id) => {
     //console.log(id, e.target.value);
