@@ -26,7 +26,7 @@ const Nav = () => {
             <li>
               <a
                 href="https://github.com/Cristofer-IA/calculadora-frontend.git"
-                _blank
+                target="_blank"
               >
                 GitHub
               </a>
