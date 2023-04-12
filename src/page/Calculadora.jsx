@@ -80,7 +80,7 @@ const Calculadora = () => {
 
   const cargarModelo = async () => {
     console.log('Cargando modelo...');
-    const model = await tf.loadLayersModel('../../public/utils/model.json');
+    const model = await tf.loadLayersModel('./utils/model.json');
     setModelo(model);
     console.log('Modelo cargado...');
   };
