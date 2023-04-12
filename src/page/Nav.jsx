@@ -1,9 +1,12 @@
 import React from 'react';
 import '../../public/css/nav.css';
 import { useNavigate } from 'react-router-dom';
+import { HiMenu } from 'react-icons/hi';
+import { GrClose } from 'react-icons/gr';
 
 const Nav = () => {
   const navigate = useNavigate();
+
   return (
     <div className="nav">
       <div className="nav__header">

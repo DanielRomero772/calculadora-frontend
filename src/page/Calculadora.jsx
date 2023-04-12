@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import '../../public/css/calculadora.css';
 import Ume from './Ume';
 import * as tf from '@tensorflow/tfjs';
+import { HiMenu } from 'react-icons/hi';
+import { CgClose } from 'react-icons/cg';
 
 const Calculadora = () => {
   const ingredientes = useSelector(state => state.ingredientes);
@@ -133,6 +135,16 @@ const Calculadora = () => {
     setCaloriasTotales(temp.toFixed(2));
   };
 
+  const handleAdd = () => {
+    const alimento = document.querySelector('.alimentos');
+    alimento.classList.add('mostrar__alimento');
+    console.log(alimento.classList);
+  };
+  const handleRemove = () => {
+    const alimento = document.querySelector('.alimentos');
+    alimento.classList.remove('mostrar__alimento');
+  };
+
   return (
     <div className="calc">
       <div className="calc__container">
@@ -167,7 +179,7 @@ const Calculadora = () => {
                       />
                     </td>
                     <td>{item.ume}</td>
-                    <td>{item.calorias} cal.</td>
+                    <td>{item.calorias}</td>
                     <td>
                       <button
                         onClick={() => {
@@ -198,9 +210,18 @@ const Calculadora = () => {
           </div>
         </div>
         <div className="alimentos">
+          <div className="alimentos__opcion">
+            <HiMenu className="btn__menu" onClick={handleAdd} />
+            <CgClose className="btn__cerrar" onClick={handleRemove} />
+          </div>
           <h3>Lista de ingredientes</h3>
 
-          <input type="text" placeholder="Buscar" onChange={handleChange} />
+          <input
+            type="text"
+            placeholder="Buscar"
+            onChange={handleChange}
+            autoComplete="of"
+          />
 
           <div className="alimentos__lista">
             {alimentoFilter?.map(ingrediente => (

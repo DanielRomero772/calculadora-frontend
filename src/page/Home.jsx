@@ -30,7 +30,7 @@ const Home = () => {
               autoComplete="of"
               placeholder="Ejemplo: Pescado a la talla"
             />
-            <button>Inicias</button>
+            <button>Iniciar</button>
           </form>
         </div>
       </div>

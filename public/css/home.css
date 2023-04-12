@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     margin-top: 80px;
+
 }
 
 .home__container {
@@ -18,6 +19,7 @@
     gap: 3rem;
     width: 100%;
     max-width: 800px;
+
 }
 
 .home__saludo {
@@ -40,7 +42,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-
 }
 
 .home__input>h4 {
@@ -50,7 +51,8 @@
 
 .home__form>input {
     padding: .5rem;
-    width: 70%;
+    width: 100%;
+    max-width: 450px;
     font-size: 1.3rem;
     outline: none;
     border: 1px solid rgb(212, 212, 212);
@@ -63,9 +65,68 @@
 
 .home__form>button {
     padding: .5rem;
-    width: 15%;
+    width: 100%;
+    max-width: 120px;
+    ;
     font-size: 1.3rem;
     background-color: #FF0000;
     color: white;
     border: 1px solid red;
+}
+
+@media (max-width: 655px) {
+    .home__saludo>h1 {
+        font-size: 4rem;
+    }
+
+    .home__saludo>h3 {
+        font-size: 1.9rem;
+    }
+
+    .home__input {
+        padding: 0;
+    }
+
+    .home__input>h4 {
+        font-size: 1.5rem;
+    }
+
+    .home__form {
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home__form>button {
+        flex: 1;
+    }
+}
+
+@media (max-width: 575px) {
+    .home__saludo>h1 {
+        font-size: 3rem;
+    }
+
+    .home__saludo>h3 {
+        font-size: 1.5rem;
+    }
+
+    .home__input>h4 {
+        font-size: 1.1rem;
+    }
+
+
+    .home__form {
+        gap: 5rem;
+    }
+
+    .home__form>input {
+        max-width: 100%;
+    }
+
+    .home__form>button {
+        max-width: 100%;
+    }
 }
