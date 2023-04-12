@@ -23,7 +23,14 @@ const Nav = () => {
         </div>
         <div className="nav__redes">
           <ul>
-            <li>GitHub</li>
+            <li>
+              <a
+                href="https://github.com/Cristofer-IA/calculadora-frontend.git"
+                _blank
+              >
+                GitHub
+              </a>
+            </li>
           </ul>
         </div>
       </div>
