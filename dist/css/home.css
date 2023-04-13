@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.home {
+    font-family: 'Roboto';
+    width: 100%;
+    height: 100vh;
+    max-height: calc(100vh - 80px);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+
+}
+
+.home__container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+    max-width: 800px;
+
+}
+
+.home__saludo {
+    text-align: center;
+}
+
+.home__saludo>h1 {
+    font-size: 5rem;
+    color: #FF0000;
+}
+
+.home__saludo>h3 {
+    font-size: 1.8rem;
+    color: #434343;
+}
+
+.home__input {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.home__input>h4 {
+    font-size: 1.1rem;
+    color: #737373;
+}
+
+.home__form>input {
+    padding: .5rem;
+    width: 100%;
+    max-width: 450px;
+    font-size: 1.3rem;
+    outline: none;
+    border: 1px solid rgb(212, 212, 212);
+    box-shadow: 0px 0px 5px rgba(146, 146, 146, .1);
+}
+
+.home__form>input::placeholder {
+    color: #c4c4c4;
+}
+
+.home__form>button {
+    padding: .5rem;
+    width: 100%;
+    max-width: 120px;
+    ;
+    font-size: 1.3rem;
+    background-color: #FF0000;
+    color: white;
+    border: 1px solid red;
+}
+
+@media (max-width: 655px) {
+    .home__saludo>h1 {
+        font-size: 4rem;
+    }
+
+    .home__saludo>h3 {
+        font-size: 1.9rem;
+    }
+
+    .home__input {
+        padding: 0;
+    }
+
+    .home__input>h4 {
+        font-size: 1.5rem;
+    }
+
+    .home__form {
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home__form>button {
+        flex: 1;
+    }
+}
+
+@media (max-width: 575px) {
+    .home__saludo>h1 {
+        font-size: 3rem;
+    }
+
+    .home__saludo>h3 {
+        font-size: 1.5rem;
+    }
+
+    .home__input>h4 {
+        font-size: 1.1rem;
+    }
+
+
+    .home__form {
+        gap: 5rem;
+    }
+
+    .home__form>input {
+        max-width: 100%;
+    }
+
+    .home__form>button {
+        max-width: 100%;
+    }
+}

@@ -124,7 +124,6 @@ const Calculadora = () => {
 
     const newArr = [...ingredienteSeleccionado];
     setIngredienteSeleccionado(newArr);
-    console.log(ingredienteSeleccionado);
   };
 
   const totalCalorias = () => {
@@ -138,7 +137,6 @@ const Calculadora = () => {
   const handleAdd = () => {
     const alimento = document.querySelector('.alimentos');
     alimento.classList.add('mostrar__alimento');
-    console.log(alimento.classList);
   };
   const handleRemove = () => {
     const alimento = document.querySelector('.alimentos');

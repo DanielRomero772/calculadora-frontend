@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllIngredientes } from './store/slices/ingredientes.slice';
 import { getAllUme } from './store/slices/ume.slice';
+import Footer from './page/Footer';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ function App() {
           <Route path={'/calculadora'} element={<Calculadora />} />
         </Route>
       </Routes>
+      <Footer />
     </div>
   );
 }
