@@ -13,7 +13,7 @@ export const { setUmeGlobal } = umeSlice.actions;
 export default umeSlice.reducer;
 
 export const getAllUme = () => dispatch => {
-  const URL = 'http://18.216.148.254:4020/api/v1/alimento/ume';
+  const URL = 'https://alimentos.azurewebsites.net/api/v1/alimento/ume';
   axios
     .get(URL)
     .then(res => {

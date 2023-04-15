@@ -13,7 +13,7 @@ export const { setIngredientesGlobal } = ingredientesSlice.actions;
 export default ingredientesSlice.reducer;
 
 export const getAllIngredientes = () => dispatch => {
-  const URL = 'http://18.216.148.254:4020/api/v1/alimento';
+  const URL = 'https://alimentos.azurewebsites.net/api/v1/alimento';
   axios
     .get(URL)
     .then(res => {
