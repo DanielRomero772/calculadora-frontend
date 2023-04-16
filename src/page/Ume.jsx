@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 const Ume = () => {
   const ume = useSelector(state => state.ume);
+
   return (
     <div className="container-table">
       <h3>Descripción de las unidades de mendida de los alimentos</h3>

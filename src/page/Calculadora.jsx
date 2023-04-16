@@ -13,8 +13,11 @@ const Calculadora = () => {
   const [alimentoFilter, setAlimentoFilter] = useState();
   const [ingredienteSeleccionado, setIngredienteSeleccionado] = useState([]);
   const [mensaje, setMensaje] = useState();
-  const [modelo, setModelo] = useState();
-  const [caloriasTotales, setCaloriasTotales] = useState();
+  const [modeloRN, setModeloRN] = useState();
+  const [modeloRL, setModeloRL] = useState();
+  const [totalRN, setTotalRN] = useState();
+  const [totalRL, setTotalRL] = useState();
+  const [totalGA, setTotalGA] = useState();
 
   useEffect(() => {
     if (ingredientes) {
@@ -24,7 +27,7 @@ const Calculadora = () => {
 
   useEffect(() => {
     if (ingredienteSeleccionado.length === 0) {
-      setMensaje('Agregue ingredientes a este plato');
+      setMensaje('* Agregue ingredientes a esta receta');
     } else {
       setMensaje('');
     }
@@ -45,9 +48,7 @@ const Calculadora = () => {
       item => item.id === ingrediente.id
     );
     if (temp.length > 0) {
-      console.log('El alimento seleccionado ya está en la lista.');
       setMensaje('* El alimento seleccionado ya está en la lista');
-      //console.log(temp);
     } else {
       const objtIngrediente = {
         id: ingrediente.id,
@@ -60,7 +61,9 @@ const Calculadora = () => {
         fibra: ingrediente.fibra,
         alcohol: ingrediente.alcohol,
         cantidad: 0,
-        calorias: 0,
+        caloriasRN: 0,
+        caloriasRL: 0,
+        caloriasGA: 0,
       };
       const nuevoArray = [...ingredienteSeleccionado];
       nuevoArray.push(objtIngrediente);
@@ -80,19 +83,28 @@ const Calculadora = () => {
     }
   };
 
-  const cargarModelo = async () => {
-    console.log('Cargando modelo...');
-    const model = await tf.loadLayersModel('./utils/model.json');
-    setModelo(model);
-    console.log('Modelo cargado...');
+  // Modelo de red neuronal con tensorflow
+  const cargarModeloRN = async () => {
+    console.log('Cargando RN modelo...');
+    const model = await tf.loadLayersModel('./utils/RN/model.json');
+    setModeloRN(model);
+    console.log('Modelo RN cargado...');
+  };
+
+  // Modelo de regresión lineal con tensorflow
+  const cargarModeloRL = async () => {
+    console.log('Cargando modelo RL...');
+    const model = await tf.loadLayersModel('./utils/RL/model.json');
+    setModeloRL(model);
+    console.log('Modelo RL cargado...');
   };
 
   useEffect(() => {
-    cargarModelo();
+    cargarModeloRN();
+    cargarModeloRL();
   }, []);
 
   const handleEdit = (e, id) => {
-    //console.log(id, e.target.value);
     let cantidad = 0;
     if (e.target.value) {
       cantidad = e.target.value;
@@ -112,26 +124,44 @@ const Calculadora = () => {
       const proteinas = item.proteinas * item.cantidad;
       const grasas = item.grasas * item.cantidad;
       const carbohidratos = item.carbohidratos * item.cantidad;
-      const fibra = item.fibra * item.cantidad;
+      const fibra = item.fibra * item.cantidad * -1;
       const alcohol = item.alcohol * item.cantidad;
 
       const tensor = tf.tensor2d([
         [grasas, carbohidratos, proteinas, alcohol, fibra],
       ]);
-      const prediccion = modelo.predict(tensor);
-      item.calorias = prediccion.dataSync()[0].toFixed(2);
+
+      const prediccionRN = modeloRN.predict(tensor);
+      const prediccionRL = modeloRL.predict(tensor);
+      const predicciónFormula =
+        grasas * 9 +
+        carbohidratos * 4 +
+        proteinas * 4 +
+        alcohol * 7 +
+        fibra * -2;
+
+      item.caloriasRN = prediccionRN.dataSync()[0].toFixed(1);
+      item.caloriasRL = prediccionRL.dataSync()[0].toFixed(1);
+      item.caloriasGA = predicciónFormula.toFixed(1);
     });
 
     const newArr = [...ingredienteSeleccionado];
     setIngredienteSeleccionado(newArr);
+    console.log(ingredienteSeleccionado);
   };
 
   const totalCalorias = () => {
-    let temp = 0;
+    let totalRN = 0;
+    let totalRL = 0;
+    let totalGA = 0;
     ingredienteSeleccionado.forEach(item => {
-      temp += +item.calorias;
+      totalRN += +item.caloriasRN;
+      totalRL += +item.caloriasRL;
+      totalGA += +item.caloriasGA;
     });
-    setCaloriasTotales(temp.toFixed(2));
+    setTotalRN(totalRN.toFixed(1));
+    setTotalRL(totalRL.toFixed(1));
+    setTotalGA(totalGA.toFixed(1));
   };
 
   const handleAdd = () => {
@@ -158,7 +188,9 @@ const Calculadora = () => {
                   <th>INGREDIENTES</th>
                   <th>CANTIDAD</th>
                   <th>UME</th>
-                  <th>CALORÍAS</th>
+                  <th>Red Neuronal</th>
+                  <th>Regresión Lineal</th>
+                  <th>General Atwater</th>
                   <th></th>
                 </tr>
               </thead>
@@ -177,7 +209,9 @@ const Calculadora = () => {
                       />
                     </td>
                     <td>{item.ume}</td>
-                    <td>{item.calorias}</td>
+                    <td>{item.caloriasRN} cal.</td>
+                    <td>{item.caloriasRL} cal.</td>
+                    <td>{item.caloriasGA} cal.</td>
                     <td>
                       <button
                         onClick={() => {
@@ -195,9 +229,32 @@ const Calculadora = () => {
               <p>{mensaje}</p>
             </div>
             <div className="total_caloria">
-              <p>
-                Total: <b>{caloriasTotales}</b> calorías
-              </p>
+              <table className="table-total">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>TIPO</th>
+                    <th>TOTAL CALORIAS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>R.N.</td>
+                    <td>{totalRN}</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>R.L.</td>
+                    <td>{totalRL}</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>G.A.</td>
+                    <td>{totalGA}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <button onClick={calcularCalorias} id="btn_predecir">
               Predecir calorías
