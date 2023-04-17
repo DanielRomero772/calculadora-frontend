@@ -18,6 +18,7 @@ const Calculadora = () => {
   const [totalRN, setTotalRN] = useState();
   const [totalRL, setTotalRL] = useState();
   const [totalGA, setTotalGA] = useState();
+  const [totalDatoEtiqueta, setTotalDatoEtiqueta] = useState();
 
   useEffect(() => {
     if (ingredientes) {
@@ -60,10 +61,12 @@ const Calculadora = () => {
         proteinas: ingrediente.proteinas,
         fibra: ingrediente.fibra,
         alcohol: ingrediente.alcohol,
+        calorias: ingrediente.calorias,
         cantidad: 0,
         caloriasRN: 0,
         caloriasRL: 0,
         caloriasGA: 0,
+        caloriasDE: 0,
       };
       const nuevoArray = [...ingredienteSeleccionado];
       nuevoArray.push(objtIngrediente);
@@ -127,6 +130,8 @@ const Calculadora = () => {
       const fibra = item.fibra * (item.cantidad / item.racion) * -1;
       const alcohol = item.alcohol * (item.cantidad / item.racion);
 
+      const datoEtiqueta = item.calorias * (item.cantidad / item.racion);
+
       const tensor = tf.tensor2d([
         [grasas, carbohidratos, proteinas, alcohol, fibra],
       ]);
@@ -143,6 +148,7 @@ const Calculadora = () => {
       item.caloriasRN = prediccionRN.dataSync()[0].toFixed(1);
       item.caloriasRL = prediccionRL.dataSync()[0].toFixed(1);
       item.caloriasGA = predicciónFormula.toFixed(1);
+      item.caloriasDE = datoEtiqueta.toFixed(1);
     });
 
     const newArr = [...ingredienteSeleccionado];
@@ -154,14 +160,17 @@ const Calculadora = () => {
     let totalRN = 0;
     let totalRL = 0;
     let totalGA = 0;
+    let totalDE = 0;
     ingredienteSeleccionado.forEach(item => {
       totalRN += +item.caloriasRN;
       totalRL += +item.caloriasRL;
       totalGA += +item.caloriasGA;
+      totalDE += +item.caloriasDE;
     });
     setTotalRN(totalRN.toFixed(1));
     setTotalRL(totalRL.toFixed(1));
     setTotalGA(totalGA.toFixed(1));
+    setTotalDatoEtiqueta(totalDE.toFixed(1));
   };
 
   const handleAdd = () => {
@@ -191,6 +200,7 @@ const Calculadora = () => {
                   <th>Red Neuronal</th>
                   <th>Regresión Lineal</th>
                   <th>General Atwater</th>
+                  <th>Datos Etiqueta</th>
                   <th></th>
                 </tr>
               </thead>
@@ -212,6 +222,7 @@ const Calculadora = () => {
                     <td>{item.caloriasRN} cal.</td>
                     <td>{item.caloriasRL} cal.</td>
                     <td>{item.caloriasGA} cal.</td>
+                    <td>{item.caloriasDE} cal.</td>
                     <td>
                       <button
                         onClick={() => {
@@ -252,6 +263,11 @@ const Calculadora = () => {
                     <td>3</td>
                     <td>G.A.</td>
                     <td>{totalGA}</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>D.E.</td>
+                    <td>{totalDatoEtiqueta}</td>
                   </tr>
                 </tbody>
               </table>
