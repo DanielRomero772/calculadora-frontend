@@ -121,11 +121,11 @@ const Calculadora = () => {
 
   const calcularCalorias = () => {
     ingredienteSeleccionado.forEach((item, index, arr) => {
-      const proteinas = item.proteinas * item.cantidad;
-      const grasas = item.grasas * item.cantidad;
-      const carbohidratos = item.carbohidratos * item.cantidad;
-      const fibra = item.fibra * item.cantidad * -1;
-      const alcohol = item.alcohol * item.cantidad;
+      const proteinas = item.proteinas * (item.cantidad / item.racion);
+      const grasas = item.grasas * (item.cantidad / item.racion);
+      const carbohidratos = item.carbohidratos * (item.cantidad / item.racion);
+      const fibra = item.fibra * (item.cantidad / item.racion) * -1;
+      const alcohol = item.alcohol * (item.cantidad / item.racion);
 
       const tensor = tf.tensor2d([
         [grasas, carbohidratos, proteinas, alcohol, fibra],
