@@ -145,10 +145,10 @@ const Calculadora = () => {
         alcohol * 7 +
         fibra * -2;
 
-      item.caloriasRN = prediccionRN.dataSync()[0].toFixed(1);
-      item.caloriasRL = prediccionRL.dataSync()[0].toFixed(1);
-      item.caloriasGA = predicciónFormula.toFixed(1);
-      item.caloriasDE = datoEtiqueta.toFixed(1);
+      item.caloriasRN = prediccionRN.dataSync()[0].toFixed(2);
+      item.caloriasRL = prediccionRL.dataSync()[0].toFixed(2);
+      item.caloriasGA = predicciónFormula.toFixed(2);
+      item.caloriasDE = datoEtiqueta.toFixed(2);
     });
 
     const newArr = [...ingredienteSeleccionado];
@@ -167,10 +167,10 @@ const Calculadora = () => {
       totalGA += +item.caloriasGA;
       totalDE += +item.caloriasDE;
     });
-    setTotalRN(totalRN.toFixed(1));
-    setTotalRL(totalRL.toFixed(1));
-    setTotalGA(totalGA.toFixed(1));
-    setTotalDatoEtiqueta(totalDE.toFixed(1));
+    setTotalRN(totalRN.toFixed(2));
+    setTotalRL(totalRL.toFixed(2));
+    setTotalGA(totalGA.toFixed(2));
+    setTotalDatoEtiqueta(totalDE.toFixed(2));
   };
 
   const handleAdd = () => {

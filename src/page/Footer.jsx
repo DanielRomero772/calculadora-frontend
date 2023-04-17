@@ -3,7 +3,7 @@ import '../../public/css/footer.css';
 
 const Footer = () => {
   return (
-    <div className="footer">UNIR 2023 - Master en Inteligencia Artificial.</div>
+    <div className="footer">UNIR 2023 - Máster en Inteligencia Artificial.</div>
   );
 };
 
