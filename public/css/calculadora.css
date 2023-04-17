@@ -397,4 +397,16 @@ td {
         right: 0;
     }
 
+    @media (max-width: 399px) {
+        .table__head>tr>th {
+            font-size: .4rem;
+            padding: 0 2px;
+        }
+
+        .table__body>tr>td {
+            font-size: .6rem;
+            padding: 0 2px;
+        }
+    }
+
 }
