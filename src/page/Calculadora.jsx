@@ -143,7 +143,7 @@ const Calculadora = () => {
         carbohidratos * 4 +
         proteinas * 4 +
         alcohol * 7 +
-        fibra * -2;
+        fibra * 2;
 
       item.caloriasRN = prediccionRN.dataSync()[0].toFixed(2);
       item.caloriasRL = prediccionRL.dataSync()[0].toFixed(2);
