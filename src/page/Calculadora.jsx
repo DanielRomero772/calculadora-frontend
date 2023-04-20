@@ -288,7 +288,7 @@ const Calculadora = () => {
           <h3>Lista de ingredientes</h3>
 
           <input
-            type="text"
+            type="search"
             placeholder="Buscar"
             onChange={handleChange}
             autoComplete="of"
