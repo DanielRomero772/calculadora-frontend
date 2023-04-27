@@ -28,7 +28,7 @@ const Home = () => {
               type="text"
               id="name"
               autoComplete="of"
-              placeholder="Ejemplo: Pescado a la talla"
+              placeholder="Ejemplo: Milanesa de pollo"
             />
             <button>Iniciar</button>
           </form>
