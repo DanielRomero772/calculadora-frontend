@@ -13,11 +13,11 @@ export const { setUmeGlobal } = umeSlice.actions;
 export default umeSlice.reducer;
 
 export const getAllUme = () => dispatch => {
-  const URL = 'https://alimentos.azurewebsites.net/api/v1/alimento/ume';
+  const URL = 'http://127.0.0.1:3000/api/v1/unidades-de-medida';
   axios
     .get(URL)
     .then(res => {
-      dispatch(setUmeGlobal(res.data.ume));
+      dispatch(setUmeGlobal(res.data.data.ume));
     })
     .catch(err => console.log(err));
 };
