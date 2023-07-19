@@ -25,12 +25,12 @@ const Nav = () => {
           <ul>
             <li>
               <a
-                href="https://github.com/Cristofer-IA/calculadora-frontend.git"
-                target="_blank"
+                href='/'
               >
-                GitHub
+                Inicio
               </a>
             </li>
+            
           </ul>
         </div>
       </div>

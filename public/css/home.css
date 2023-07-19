@@ -73,6 +73,33 @@
     color: white;
     border: 1px solid red;
 }
+.card__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: calc(33.33% - 10px);
+    transition: 0.3s;
+    margin-bottom: 20px;
+    padding: 20px 10px;
+    border-radius: 10px;
+  }
+  .card>img {
+    max-width: 100%;
+    height: auto;
+  }
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Add some padding inside the card container */
+  .container {
+    padding: 2px 16px;
+  }
 
 @media (max-width: 655px) {
     .home__saludo>h1 {
@@ -102,6 +129,10 @@
     .home__form>button {
         flex: 1;
     }
+
+    .card {
+        width: 100%;
+      }
 }
 
 @media (max-width: 575px) {

@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../public/css/home.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { setTrainerGlobal } from '../store/slices/trainer.slice';
+import { getIngredientesDeLaReceta } from '../store/slices/recetaSeleccionada.slice';
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  
+  const recetas = useSelector(state => state.recetas);
+
+  const [recetasFilter, setRecetasFilter] = useState();
+  
+  useEffect(() => {
+    console.log(recetas);
+    if (recetas) {
+      setRecetasFilter(recetas);
+    }
+  }, [recetas]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -14,6 +28,13 @@ const Home = () => {
     e.target.name.value = '';
     navigate('/calculadora');
   };
+
+  const handleSelectedRecipe = (receta) =>{
+    console.log(receta);
+    dispatch(setTrainerGlobal(receta.nombre));
+    // dispatch(getIngredientesDeLaReceta(receta.id));
+    navigate('/calculadora?receta_id='+receta.id);
+  }
   return (
     <div className="home">
       <div className="home__container">
@@ -32,6 +53,17 @@ const Home = () => {
             />
             <button>Iniciar</button>
           </form>
+          <h4>Recetas precargadas</h4>
+          <div className="card__container">
+          {recetasFilter?.map(receta => (
+            <div className="card" key={receta.id} onClick={()=>handleSelectedRecipe(receta)}>
+            <img src={`${receta.imageUrl}`} alt="Avatar"/>
+              <h4><b>{receta.nombre}</b></h4>
+                
+          </div>
+            ))}
+            
+          </div>
         </div>
       </div>
     </div>

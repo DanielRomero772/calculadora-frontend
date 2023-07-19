@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSearchParams  } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import '../../public/css/calculadora.css';
 import Ume from './Ume';
@@ -7,7 +9,9 @@ import { HiMenu } from 'react-icons/hi';
 import { CgClose } from 'react-icons/cg';
 
 const Calculadora = () => {
+  const [searchParams] = useSearchParams ();
   const ingredientes = useSelector(state => state.ingredientes);
+  const recetaSeleccionada = useSelector(state => state.recetaSeleccionada);
   const { trainer } = useSelector(state => state);
 
   const [alimentoFilter, setAlimentoFilter] = useState();
@@ -19,6 +23,75 @@ const Calculadora = () => {
   const [totalRL, setTotalRL] = useState();
   const [totalGA, setTotalGA] = useState();
   const [totalDatoEtiqueta, setTotalDatoEtiqueta] = useState();
+
+  useEffect(()=>{
+    if(searchParams.get('receta_id')){
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://127.0.0.1:3000/api/v1/receta-detalles/'+searchParams.get('receta_id'));
+          console.log(response);
+          const tempArray = response.data.data.recetaDetalles.map(ingrediente=>{
+            const objtIngrediente = {
+              id: ingrediente.id,
+              alimento: ingrediente.nombre,
+              racion: ingrediente.racion,
+              ume: ingrediente.ume,
+              carbohidratos: ingrediente.carbohidratos,
+              grasas: ingrediente.grasas,
+              proteinas: ingrediente.proteinas,
+              fibra: ingrediente.fibra,
+              alcohol: ingrediente.alcohol,
+              calorias: ingrediente.calorias,
+              cantidad: 0,
+              caloriasRN: 0,
+              caloriasRL: 0,
+              caloriasGA: 0,
+              caloriasDE: 0,
+            };
+          return objtIngrediente;
+          });
+          console.log({tempArray});
+          setIngredienteSeleccionado(tempArray);
+          // Hacer algo con los datos recibidos
+        } catch (error) {
+          console.log(error);
+          // Manejar el error
+        }
+      };
+  
+      fetchData();
+    }
+  }, []);
+
+  useEffect(()=>{
+    console.log({recetaSeleccionada});
+    if(recetaSeleccionada){
+      console.log(recetaSeleccionada);
+      recetaSeleccionada.map(ingrediente=>{
+        const objtIngrediente = {
+          id: ingrediente.id,
+          alimento: ingrediente.alimento,
+          racion: ingrediente.racion,
+          ume: ingrediente.ume,
+          carbohidratos: ingrediente.carbohidratos,
+          grasas: ingrediente.grasas,
+          proteinas: ingrediente.proteinas,
+          fibra: ingrediente.fibra,
+          alcohol: ingrediente.alcohol,
+          calorias: ingrediente.calorias,
+          cantidad: 0,
+          caloriasRN: 0,
+          caloriasRL: 0,
+          caloriasGA: 0,
+          caloriasDE: 0,
+        };
+        const nuevoArray = [...ingredienteSeleccionado];
+        nuevoArray.push(objtIngrediente);
+        setIngredienteSeleccionado(nuevoArray);
+
+      })
+    }
+  }, [recetaSeleccionada]);
 
   useEffect(() => {
     if (ingredientes) {
@@ -53,7 +126,7 @@ const Calculadora = () => {
     } else {
       const objtIngrediente = {
         id: ingrediente.id,
-        alimento: ingrediente.alimento,
+        alimento: ingrediente.nombre,
         racion: ingrediente.racion,
         ume: ingrediente.ume,
         carbohidratos: ingrediente.carbohidratos,

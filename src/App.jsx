@@ -8,20 +8,23 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllIngredientes } from './store/slices/ingredientes.slice';
 import { getAllUme } from './store/slices/ume.slice';
+import { getAllRecipes } from './store/slices/recetas.slice';
 import Footer from './page/Footer';
 import './App.css';
 
 function App() {
   const ume = useSelector(state => state.ume);
+  const recetas = useSelector(state => state.recetas);
   //const ume = null;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllIngredientes());
     dispatch(getAllUme());
+    dispatch(getAllRecipes());
   }, []);
 
-  if (ume) {
+  if (ume && recetas) {
     return (
       <div className="App">
         <Nav />
@@ -37,7 +40,7 @@ function App() {
   } else {
     return (
       <div className="load">
-        <span class="loader"></span>
+        <span className="loader"></span>
       </div>
     );
   }
