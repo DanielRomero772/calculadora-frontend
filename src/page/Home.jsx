@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { setTrainerGlobal } from '../store/slices/trainer.slice';
-import { getIngredientesDeLaReceta } from '../store/slices/recetaSeleccionada.slice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -39,8 +38,8 @@ const Home = () => {
     <div className="home">
       <div className="home__container">
         <div className="home__saludo">
-          <h1>!HOLA¡</h1>
-          <h3>Bienvenido a la calculadora de calorías</h3>
+          <h1>Modulo de calculo de calorías</h1>
+          <p>En este modulo podra realizar el calculo de calorías de sus recetas en base sus ingredientes y las cantidades de los mismos.</p>
         </div>
         <div className="home__input">
           <h4>Para iniciar, ingrese el nombre de una receta de comida.</h4>
@@ -53,18 +52,19 @@ const Home = () => {
             />
             <button>Iniciar</button>
           </form>
-          <h4>Recetas precargadas</h4>
-          <div className="card__container">
-          {recetasFilter?.map(receta => (
-            <div className="card" key={receta.id} onClick={()=>handleSelectedRecipe(receta)}>
-            <img src={`${receta.imageUrl}`} alt="Avatar"/>
-              <h4><b>{receta.nombre}</b></h4>
-                
-          </div>
-            ))}
-            
-          </div>
         </div>
+        <div className="home__input">
+
+        <h3>Recetas precargadas</h3>
+          <div className="card__container">
+            {recetasFilter?.map(receta => (
+              <div className="card" key={receta.id} onClick={()=>handleSelectedRecipe(receta)}>
+                <img src={`${receta.imageUrl}`} alt={receta.nombre}/>
+                  <h4><b>{receta.nombre}</b></h4>
+              </div>
+            ))}
+          </div>
+          </div>
       </div>
     </div>
   );

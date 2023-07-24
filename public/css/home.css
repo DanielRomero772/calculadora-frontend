@@ -27,14 +27,23 @@
 }
 
 .home__saludo>h1 {
-    font-size: 5rem;
+    font-size: 3rem;
     color: #FF0000;
 }
 
-.home__saludo>h3 {
+.home__saludo>p {
+    font-size: 1.2rem;
+    padding-top: 2rem;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 550px;
+}
+
+/* .home__saludo>h3 {
     font-size: 1.8rem;
     color: #434343;
-}
+} */
 
 .home__input {
     padding: 1rem;
