@@ -13,7 +13,7 @@ export const { setUmeGlobal } = umeSlice.actions;
 export default umeSlice.reducer;
 
 export const getAllUme = () => dispatch => {
-  const URL = 'http://127.0.0.1:3000/api/v1/unidades-de-medida';
+  const URL = 'http://127.0.0.1:3300/api/v1/unidades-de-medida';
   axios
     .get(URL)
     .then(res => {

@@ -28,7 +28,7 @@ const Calculadora = () => {
     if(searchParams.get('receta_id')){
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://127.0.0.1:3000/api/v1/receta-detalles/'+searchParams.get('receta_id'));
+          const response = await axios.get('http://127.0.0.1:3300/api/v1/receta-detalles/'+searchParams.get('receta_id'));
           console.log(response);
           const tempArray = response.data.data.recetaDetalles.map(ingrediente=>{
             const objtIngrediente = {
