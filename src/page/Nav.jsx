@@ -1,8 +1,6 @@
 import React from 'react';
 import '../../public/css/nav.css';
 import { useNavigate } from 'react-router-dom';
-import { HiMenu } from 'react-icons/hi';
-import { GrClose } from 'react-icons/gr';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ const Nav = () => {
           >
             <img src="images/logo.png" alt="" />
           </div>
-          <h3>Predicción de calorías con TensorFlow</h3>
+          <h3>Módulo de Cálculo de Calorías</h3>
         </div>
         <div className="nav__redes">
           <ul>
