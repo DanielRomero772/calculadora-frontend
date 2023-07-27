@@ -13,11 +13,11 @@ export const { setIngredientesGlobal } = ingredientesSlice.actions;
 export default ingredientesSlice.reducer;
 
 export const getAllIngredientes = () => dispatch => {
-  const URL = 'https://alimentos.azurewebsites.net/api/v1/alimento';
+  const URL = `${import.meta.env.VITE_API_COMEDORES_COMUNITARIOS}/ingredientes`;
   axios
     .get(URL)
     .then(res => {
-      dispatch(setIngredientesGlobal(res.data.alimentos));
+      dispatch(setIngredientesGlobal(res.data.data.ingredientes));
     })
     .catch(err => console.log(err));
 };

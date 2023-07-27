@@ -13,7 +13,7 @@ export const { setRecetasGlobal } = recetasSlice.actions;
 export default recetasSlice.reducer;
 
 export const getAllRecipes = () => dispatch => {
-  const URL = 'http://127.0.0.1:3300/api/v1/recetas';
+  const URL = `${import.meta.env.VITE_API_COMEDORES_COMUNITARIOS}/recetas`;
   axios
     .get(URL)
     .then(res => {
