@@ -24,16 +24,16 @@ const Calculadora = () => {
   const [totalGA, setTotalGA] = useState();
   const [totalDatoEtiqueta, setTotalDatoEtiqueta] = useState();
 
+
   useEffect(()=>{
     if(searchParams.get('receta_id')){
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://127.0.0.1:3300/api/v1/receta-detalles/'+searchParams.get('receta_id'));
-          console.log(response);
+          const response = await axios.get(`${import.meta.env.VITE_API_COMEDORES_COMUNITARIOS}/receta-detalles/`+searchParams.get('receta_id'));
           const tempArray = response.data.data.recetaDetalles.map(ingrediente=>{
             const objtIngrediente = {
               id: ingrediente.id,
-              alimento: ingrediente.nombre,
+              nombre: ingrediente.nombre,
               racion: ingrediente.racion,
               ume: ingrediente.ume,
               carbohidratos: ingrediente.carbohidratos,
@@ -42,7 +42,7 @@ const Calculadora = () => {
               fibra: ingrediente.fibra,
               alcohol: ingrediente.alcohol,
               calorias: ingrediente.calorias,
-              cantidad: 0,
+              cantidad: ingrediente.cantidad,
               caloriasRN: 0,
               caloriasRL: 0,
               caloriasGA: 0,
@@ -50,11 +50,10 @@ const Calculadora = () => {
             };
           return objtIngrediente;
           });
-          console.log({tempArray});
           setIngredienteSeleccionado(tempArray);
           // Hacer algo con los datos recibidos
         } catch (error) {
-          console.log(error);
+          // console.log(error);
           // Manejar el error
         }
       };
@@ -64,13 +63,11 @@ const Calculadora = () => {
   }, []);
 
   useEffect(()=>{
-    console.log({recetaSeleccionada});
     if(recetaSeleccionada){
-      console.log(recetaSeleccionada);
       recetaSeleccionada.map(ingrediente=>{
         const objtIngrediente = {
           id: ingrediente.id,
-          alimento: ingrediente.alimento,
+          nombre: ingrediente.nombre,
           racion: ingrediente.racion,
           ume: ingrediente.ume,
           carbohidratos: ingrediente.carbohidratos,
@@ -111,8 +108,8 @@ const Calculadora = () => {
 
   const handleChange = e => {
     const inputValue = e.target.value.toLowerCase().trim();
-    const filter = ingredientes.filter(nombre =>
-      nombre.alimento.toLowerCase().includes(inputValue)
+    const filter = ingredientes.filter(ingrediente =>
+      ingrediente.nombre.toLowerCase().includes(inputValue)
     );
     setAlimentoFilter(filter);
   };
@@ -192,7 +189,6 @@ const Calculadora = () => {
     if (index !== -1) {
       ingredienteSeleccionado[index].cantidad = parseFloat(cantidad);
     }
-    console.log(ingredienteSeleccionado[index].cantidad);
   };
 
   const calcularCalorias = () => {
@@ -226,7 +222,6 @@ const Calculadora = () => {
 
     const newArr = [...ingredienteSeleccionado];
     setIngredienteSeleccionado(newArr);
-    console.log(ingredienteSeleccionado);
   };
 
   const totalCalorias = () => {
@@ -280,7 +275,7 @@ const Calculadora = () => {
               <tbody className="table__body">
                 {ingredienteSeleccionado.map(item => (
                   <tr key={item.id}>
-                    <td>{item.alimento}</td>
+                    <td>{item.nombre}</td>
                     <td>
                       <input
                         onChange={e => {
@@ -370,7 +365,7 @@ const Calculadora = () => {
           <div className="alimentos__lista">
             {alimentoFilter?.map(ingrediente => (
               <div key={ingrediente.id}>
-                <p>{ingrediente.alimento}</p>
+                <p>{ingrediente.nombre}</p>
                 <button
                   onClick={() => {
                     handleClic(ingrediente);
