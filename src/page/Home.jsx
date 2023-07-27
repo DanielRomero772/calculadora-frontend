@@ -38,8 +38,8 @@ const Home = () => {
     <div className="home">
       <div className="home__container">
         <div className="home__saludo">
-          <h1>Modulo de calculo de calorías</h1>
-          <p>En este modulo podra realizar el calculo de calorías de sus recetas en base sus ingredientes y las cantidades de los mismos.</p>
+          <h1>Módulo de Cálculo de Calorías</h1>
+          <p>En este módulo podrá realizar el cálculo de calorías de sus recetas en base a sus ingredientes y las cantidades de los mismos.</p>
         </div>
         <div className="home__input">
           <h4>Para iniciar, ingrese el nombre de una receta de comida.</h4>
