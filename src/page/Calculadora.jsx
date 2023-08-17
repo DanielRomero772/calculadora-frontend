@@ -29,7 +29,7 @@ const Calculadora = () => {
     if(searchParams.get('receta_id')){
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_COMEDORES_COMUNITARIOS}/receta-detalles/`+searchParams.get('receta_id'));
+          const response = await axios.get(`${import.meta.env.VITE_API_COMEDORES_COMUNITARIOS}/receta-detalles/obtenerReceta/`+searchParams.get('receta_id'));
           const tempArray = response.data.data.recetaDetalles.map(ingrediente=>{
             const objtIngrediente = {
               id: ingrediente.id,
